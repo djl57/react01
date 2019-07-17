@@ -66,3 +66,19 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### 目的
+做一个后台
+
+### 技术栈
+前端 create-react-app
+后端 koa
+服务器 windows2008
+
+### 功能
+|功能|描述|
+|--|--|
+|登录|设置登录过期时间|
+|注册||
+|第三方登录||
+|图片上传||
