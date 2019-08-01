@@ -7,9 +7,13 @@ import * as serviceWorker from './serviceWorker';
 // import RouterAlike from './learn/routerAlike';
 /* 数据渲染 */
 // import DataRender from './learn/dataRender'
-
-import DataRender from './learn/dataRender'
-ReactDOM.render(<DataRender />, document.getElementById('root'));
+/* 生命周期 */
+// import Smzq from './learn/smzq'
+/* 事件处理 */
+// import Sjcl from './learn/sjcl'
+/* 条件和循环 */
+import IfFor from './learn/ifFor'
+ReactDOM.render(<IfFor />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
