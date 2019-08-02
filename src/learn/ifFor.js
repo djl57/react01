@@ -9,32 +9,19 @@ const IsLogin = props => {
   }
   return <Logout />;
 };
-class LoginPage extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+
+class For extends React.Component {
   render() {
-    return(
-      <input type="button" value="登录" onClick={() => this.handelLogin()} />
-    )
+    const list = [
+      { id: 1, value: "list1" },
+      { id: 2, value: "list2" },
+      { id: 3, value: "list3" },
+      { id: 4, value: "list4" },
+    ];
+    const listItem = list.map(item => <li key={item.id}>{item.value}</li>);
+    return <ul>{listItem}</ul>;
   }
 }
-class LogoutPage extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-  render() {
-    return(
-      <input type="button" value="登出" onClick={() => this.handelLogout()} />
-    )
-  }
-}
-const IsLoginPage = props => {
-  if (props.loginStatus === 1) {
-    return <LoginPage />;
-  }
-  return <LogoutPage />;
-};
 
 class IfFor extends React.Component {
   constructor(props) {
@@ -43,11 +30,40 @@ class IfFor extends React.Component {
       loginStatus: 0
     };
   }
+  handelLoginClick() {
+    this.setState({ loginStatus: 1 });
+  }
+  handleLogoutClick() {
+    this.setState({ loginStatus: 0 });
+  }
   render() {
+    const loginStatus = this.state.loginStatus;
+    let btn;
+    if (loginStatus === 0) {
+      btn = (
+        <input
+          type="button"
+          value="登录"
+          onClick={() => this.handelLoginClick()}
+        />
+      );
+    } else {
+      btn = (
+        <input
+          type="button"
+          value="登出"
+          onClick={() => this.handleLogoutClick()}
+        />
+      );
+    }
+    let res = [1, 2];
     return (
       <div>
         <IsLogin loginStatus={this.state.loginStatus} />
-        <IsLoginPage loginStatus={this.state.loginStatus}/>
+        {btn}
+        {res.length > 0 && <p>正在使用 与运算符</p>}
+        该用户已{this.state.loginStatus ? "登录" : "登出"}
+        <For />
       </div>
     );
   }
