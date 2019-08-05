@@ -8,7 +8,9 @@ class Form extends React.Component {
       name: "",
       context: "这是内容",
       selectValue: 1,
-      fruits: [1, 2]
+      fruits: [1, 2],
+      input1: "",
+      input2: ""
     };
   }
   handleSubmit(event) {
@@ -16,6 +18,8 @@ class Form extends React.Component {
     console.log("提交的内容是：", this.state.context);
     console.log("选择的水饺口味是：", this.state.selectValue);
     console.log("喜欢的水果是：", this.state.fruits);
+    console.log("input1是：", this.state.input1);
+    console.log("input2是：", this.state.input2);
     event.preventDefault();
   }
   handleChange(event) {
@@ -36,6 +40,13 @@ class Form extends React.Component {
   handleMulSelectChange(event) {
     this.setState({
       fruits: event.target.value
+    });
+  }
+  handleChanges(e) {
+    const target = e.target;
+    const name = target.name;
+    this.setState({
+      [name]: target.value
     });
   }
   render() {
@@ -95,6 +106,28 @@ class Form extends React.Component {
             {multipleOptionsItem}
           </select>
         </label>
+
+        <label>
+          <input
+            type="text"
+            value={this.state.input1}
+            name="input1"
+            onChange={e => this.handleChanges(e)}
+          />
+        </label>
+        <label>
+          <input
+            type="text"
+            value={this.state.input2}
+            name="input2"
+            onChange={e => this.handleChanges(e)}
+          />
+        </label>
+
+        <label>
+          <input type="text" value="hi" disabled/>
+        </label>
+
         <input type="submit" value="提交" />
       </form>
     );
