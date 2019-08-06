@@ -14,8 +14,10 @@ import * as serviceWorker from './serviceWorker';
 /* 条件和循环 */
 // import IfFor from './learn/ifFor'
 /* 表单 */
-import FormItem from './learn/form'
-ReactDOM.render(<FormItem />, document.getElementById('root'));
+// import FormItem from './learn/form'
+/* 状态提升 */
+import StateUp from './learn/stateUp'
+ReactDOM.render(<StateUp />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
