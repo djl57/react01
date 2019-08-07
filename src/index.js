@@ -16,8 +16,10 @@ import * as serviceWorker from './serviceWorker';
 /* 表单 */
 // import FormItem from './learn/form'
 /* 状态提升 */
-import StateUp from './learn/stateUp'
-ReactDOM.render(<StateUp />, document.getElementById('root'));
+// import StateUp from './learn/stateUp'
+/* 组合&继承 */
+import CompositionInheritance from './learn/CompositionInheritance'
+ReactDOM.render(<CompositionInheritance />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

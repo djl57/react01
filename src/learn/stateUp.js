@@ -57,12 +57,42 @@ class TemplateInput extends React.Component {
 class StateUp extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      temperature: "",
+      scale: ""
+    };
+  }
+  handleCChange(val) {
+    this.setState({
+      temperature: val,
+      scale: "c"
+    });
+  }
+  handleFChange(val) {
+    this.setState({
+      temperature: val,
+      scale: "f"
+    });
   }
   render() {
+    const temperature = this.state.temperature;
+    const celsius =
+      this.state.scale === "f" ? tryConvert(temperature, toC) : temperature;
+    const fahrenheit =
+      this.state.scale === "c" ? tryConvert(temperature, toF) : temperature;
     return (
       <div>
-        <TemplateInput scale="c" />
-        <TemplateInput scale="f" />
+        <TemplateInput
+          scale="c"
+          temperature={celsius}
+          onTemperatureChange={val => this.handleCChange(val)}
+        />
+        <TemplateInput
+          scale="f"
+          temperature={fahrenheit}
+          onTemperatureChange={val => this.handleFChange(val)}
+        />
+        <BoilingText celsius={celsius}></BoilingText>
       </div>
     );
   }
