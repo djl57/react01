@@ -4,7 +4,7 @@ import './styles/index.css';
 import * as serviceWorker from './serviceWorker';
 
 /* 没用router的前 */
-// import RouterAlike from './learn/routerAlike';
+import RouterAlike from './learn/routerAlike';
 /* 数据渲染 */
 // import DataRender from './learn/dataRender'
 /* 生命周期 */
@@ -18,8 +18,8 @@ import * as serviceWorker from './serviceWorker';
 /* 状态提升 */
 // import StateUp from './learn/stateUp'
 /* 组合&继承 */
-import CompositionInheritance from './learn/CompositionInheritance'
-ReactDOM.render(<CompositionInheritance />, document.getElementById('root'));
+// import CompositionInheritance from './learn/CompositionInheritance'
+ReactDOM.render(<RouterAlike />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
