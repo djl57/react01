@@ -1,6 +1,4 @@
 import React from "react";
-// import logo from './logo.svg';
-// import './App.css';
 
 const About = () => {
   return (
@@ -28,6 +26,7 @@ class App extends React.Component {
 
   componentDidMount() {
     window.addEventListener("hashchange", () => {
+      console.log(window.location.hash.substr(1))
       this.setState({
         route: window.location.hash.substr(1)
       });
