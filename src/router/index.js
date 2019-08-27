@@ -18,28 +18,59 @@ const Inbox = () => {
   );
 };
 
-const About = () => {
+const name = () => {
   return (
     <div>
-      <h2>About</h2>
+      <h2>name</h2>
     </div>
   );
 };
-// class About extends React.Component {
-//   render() {
-//     // console.log(this.props.match);
-//     return (
-//       <div>
-//         about
-//       </div>
-//     )
-//   }
-// }
+
+const age = () => {
+  return (
+    <div>
+      <h2>age</h2>
+    </div>
+  );
+};
+
+const sex = (props) => {
+  const { match } = props;
+  console.log(match);
+  return (
+    <div>
+      <h2>sex</h2>
+    </div>
+  );
+};
+
+class About extends React.Component {
+  render() {
+    const { match } = this.props;
+    console.log(match);
+    return (
+      <div>
+        <h2>About</h2>
+        <ul>
+          <li>
+            <Link to={`${match.url}/name`}>name</Link>
+          </li>
+          <li>
+            <Link to={`${match.url}/age`}>age</Link>
+          </li>
+          <li>
+            <Link to={`${match.url}/sex`}>sex</Link>
+          </li>
+        </ul>
+        <Route path={`${match.path}/name`} component={name} />
+        <Route path={`${match.path}/age`} component={age} />
+        <Route path={`${match.path}/sex`} component={sex} />
+      </div>
+    );
+  }
+}
 
 class Routers extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <Router>
@@ -56,6 +87,7 @@ class Routers extends React.Component {
             </li>
           </ul>
           <Route exact path="/" component={Home} />
+          {/* exact 严格匹配，不然/about也会匹配到/ */}
           <Route path="/about" component={About} />
           <Route path="/inbox" component={Inbox} />
         </div>
