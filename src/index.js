@@ -1,14 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './styles/index.css';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./styles/index.css";
+import * as serviceWorker from "./serviceWorker";
 
 /* 没用router的前 */
 // import RouterAlike from './learn/routerAlike';
-/* 使用router 基本 */
+/* 使用router：
+UseRouter 基本
+ParamsExample url参数
+AuthExample 重定向（Auth）
+CustomLink 自定义链接
+*/
 // import UseRouter from './router/index';
-/* 使用router 重定向（Auth） */
-import AuthExample from './router/AuthExample';
+import ParamsExample from "./router/ParamsExample";
+// import AuthExample from './router/AuthExample';
+// import CustomLink from './router/CustomLink';
 /* 数据渲染 */
 // import DataRender from './learn/dataRender'
 /* 生命周期 */
@@ -23,7 +29,8 @@ import AuthExample from './router/AuthExample';
 // import StateUp from './learn/stateUp'
 /* 组合&继承 */
 // import CompositionInheritance from './learn/CompositionInheritance'
-ReactDOM.render(<AuthExample />, document.getElementById('root'));
+// import Example01 from './view/example01'
+ReactDOM.render(<ParamsExample />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
