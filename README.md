@@ -85,4 +85,10 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 |第三方登录||
 |图片上传||
 
-### npm install --save react-router
+### yarn add --save react-router
+
+### yarn add normalize.css
+
+### yarn add node-sass
+
+修改了path.js中的pathname，解决打包白屏

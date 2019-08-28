@@ -1,0 +1,28 @@
+.blog-header {
+  height: 40px;
+  line-height: 40px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  min-width: 1200px;
+  padding: 0 30px;
+  background-color: #fff;
+  .nav-lists {
+    display: flex;
+    .nav-list {
+      margin: 0 10px;
+      cursor: pointer;
+      color: $blogNavColor;
+    }
+    .nav-list-active {
+      position: relative;
+      &::after {
+        position: absolute;
+        content: "";
+        bottom: 0;
+        height: 2px;
+        left: 0;
+        right: 0;
+        background-color: $blogNavActiveColor;
+      }
+    }
+  }
+}

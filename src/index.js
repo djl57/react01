@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./styles/index.css";
+import "./styles/index.scss";
+import 'normalize.css/normalize.css'
 import * as serviceWorker from "./serviceWorker";
 
 /* 没用router的前 */
@@ -12,7 +13,7 @@ AuthExample 重定向（Auth）
 CustomLink 自定义链接
 */
 // import UseRouter from './router/index';
-import ParamsExample from "./router/ParamsExample";
+// import ParamsExample from "./router/ParamsExample";
 // import AuthExample from './router/AuthExample';
 // import CustomLink from './router/CustomLink';
 /* 数据渲染 */
@@ -30,7 +31,9 @@ import ParamsExample from "./router/ParamsExample";
 /* 组合&继承 */
 // import CompositionInheritance from './learn/CompositionInheritance'
 // import Example01 from './view/example01'
-ReactDOM.render(<ParamsExample />, document.getElementById("root"));
+
+import BlogHeader from './view/blog/blogHeader.js'
+ReactDOM.render(<BlogHeader />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
