@@ -1,5 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from "react-router-dom";
 
 const Public = () => {
   return <div>public</div>;
@@ -74,23 +80,32 @@ class Login extends React.Component {
   }
 }
 
-const AuthButton = withRouter(
-  ({ history }) =>
-    fakeAuth.isAuthenticated ? (
-      <p>
-        Welcome!{" "}
-        <button
-          onClick={() => {
-            fakeAuth.signout(() => history.push("/"));
-          }}
-        >
-          Sign out
-        </button>
-      </p>
-    ) : (
-      <p>You are not logged in.</p>
-    )
-);
+class Auth extends React.Component {
+  render() {
+    const { history } = this.props;
+    console.log(history)
+    return (
+      <div>
+        {fakeAuth.isAuthenticated ? (
+          <p>
+            Welcome!{" "}
+            <button
+              onClick={() => {
+                fakeAuth.signout(() => history.push("/"));
+              }}
+            >
+              Sign out
+            </button>
+          </p>
+        ) : (
+          <p>You are not logged in.</p>
+        )}
+      </div>
+    );
+  }
+}
+
+const AuthButton = withRouter(Auth);
 
 class AuthExample extends React.Component {
   render() {
@@ -108,7 +123,7 @@ class AuthExample extends React.Component {
           </ul>
           <Route path="/public" component={Public} />
           <Route path="/login" component={Login} />
-          <PrivateRoute path="/protected" component={Protected} />
+          <PrivateRoute path="/protected" component={Protected} /> */}
         </div>
       </Router>
     );
