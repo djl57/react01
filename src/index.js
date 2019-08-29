@@ -15,7 +15,7 @@ CustomLink 自定义链接
 // import RouterAlike from './learn/routerAlike';
 // import UseRouter from './learn/UseRouter';
 // import ParamsExample from "./learn/ParamsExample";
-import AuthExample from './learn/AuthExample';
+// import AuthExample from './learn/AuthExample';
 // import CustomLink from './learn/CustomLink';
 
 /* react基础：
@@ -38,18 +38,17 @@ CompositionInheritance 组合&继承
 /* 使用redux：
 StoreExample 生成store并定义actions
 UseStore 在组件中使用生成的store
+UseCombineReducers Reducer的拆分
  */
 // import './learn/StoreExample.js'
 // import UseStore from './learn/UseStore.js'
+// import './learn/UseCombineReducers'
 
-/* blog相关：
-BlogHeader 顶部
-*/
-import './store/index.js'
-import BlogPage from './view/blog/page.js'
-// import BlogHeader from './view/blog/blogHeader.js'
+/* blog相关：*/
+// import './store/index.js'
+import BlogPage from "./view/blog/page.js";
 
-ReactDOM.render(<AuthExample />, document.getElementById("root"));
+ReactDOM.render(<BlogPage />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

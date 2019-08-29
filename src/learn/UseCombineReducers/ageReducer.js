@@ -1,6 +1,3 @@
-import React from "react";
-import { createStore } from "redux";
-
 const getReducer = obj => {
   return (state, action) => {
     const reg = RegExp("@@redux/");
@@ -14,17 +11,15 @@ const getReducer = obj => {
 
 const defaultStateAndActions = {
   defaultState: {
-    curNavIdx: 0
+    age: 18,
   },
   actions: {
-    changeCurNavIdx(action) {
-      console.log(action)
+    changeAge(action) {
       return {
-        curNavIdx: action.curNavIdx
+        age: action.age
       };
-    }
+    },
   }
 };
 
-const store = createStore(getReducer(defaultStateAndActions));
-React.store = store;
+export default getReducer(defaultStateAndActions)

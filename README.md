@@ -96,4 +96,22 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 - state 存储在单一的 store 中，唯一改变 state 的方法是触发 action（编写 reducers）
 - redux 只有一个单一的 store 和一个根级的 reduce 函数（reducer）。随着应用不断变大，应该把根级的 reducer 拆成多个小的 reducers，分别独立地操作 state 树的不同部分，而不是添加新的 stores。这就像一个 React 应用只有一个根级的组件，这个根组件又由很多小组件构成。
 
+### yarn add antd
+### yarn add babel-plugin-import 用于按需引入antd样式
+同时需要在package.json的babel中添加一下内容
+  "babel": {
+    "presets": [
+      "react-app"
+    ],
+    "plugins": [
+      [
+        "import",
+        {
+          "libraryName": "antd",
+          "style": "css"
+        }
+      ]
+    ]
+  }
+
 修改了path.js中的pathname，解决打包白屏

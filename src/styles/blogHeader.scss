@@ -3,11 +3,15 @@
   line-height: 40px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   min-width: 1200px;
-  padding: 0 30px;
+  padding: 0 40px;
   background-color: #fff;
+  box-sizing: border-box;
+  // display: flex;
+  // justify-content: space-between;
   .nav-lists {
-    display: flex;
+    float: left;
     .nav-list {
+      float: left;
       margin: 0 10px;
       cursor: pointer;
       color: $blogNavColor;
@@ -23,6 +27,13 @@
         right: 0;
         background-color: $blogNavActiveColor;
       }
+    }
+  }
+  .hd-right {
+    float: right;
+    .hd-right-margin {
+      margin-left: 20px;
+      cursor: pointer;
     }
   }
 }
