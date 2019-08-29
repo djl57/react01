@@ -91,4 +91,8 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ### yarn add node-sass
 
+### yarn add redux
+### yarn add react-redux redux-devtools
+state 存储在单一的 store 中，唯一改变 state 的方法是触发 action（编写 reducers）
+
 修改了path.js中的pathname，解决打包白屏

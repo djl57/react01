@@ -16,6 +16,7 @@ class BlogHeader extends React.Component {
     history.push(to);
   }
   render() {
+    console.log(React.store.getState())
     const navLists = [
       { id: 0, navName: "首页", to: "/" },
       { id: 1, navName: "博客", to: "/blog" }
