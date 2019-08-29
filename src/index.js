@@ -13,10 +13,10 @@ AuthExample 重定向（Auth）
 CustomLink 自定义链接
 */
 // import RouterAlike from './learn/routerAlike';
-// import UseRouter from './router/index';
-// import ParamsExample from "./router/ParamsExample";
-// import AuthExample from './router/AuthExample';
-// import CustomLink from './router/CustomLink';
+// import UseRouter from './learn/UseRouter';
+// import ParamsExample from "./learn/ParamsExample";
+import AuthExample from './learn/AuthExample';
+// import CustomLink from './learn/CustomLink';
 
 /* react基础：
 DataRender 数据渲染
@@ -35,22 +35,21 @@ CompositionInheritance 组合&继承
 // import StateUp from './learn/stateUp'
 // import CompositionInheritance from './learn/CompositionInheritance'
 
-/* blog相关：
-BlogHeader 顶部
-*/
-// import BlogHeader from './view/blog/blogHeader.js'
-
-/* 其他：*/
-// import Example01 from './view/example01'
-
 /* 使用redux：
 StoreExample 生成store并定义actions
 UseStore 在组件中使用生成的store
  */
-import './learn/StoreExample.js'
-import UseStore from './learn/UseStore.js'
+// import './learn/StoreExample.js'
+// import UseStore from './learn/UseStore.js'
 
-ReactDOM.render(<UseStore />, document.getElementById("root"));
+/* blog相关：
+BlogHeader 顶部
+*/
+import './store/index.js'
+import BlogPage from './view/blog/page.js'
+// import BlogHeader from './view/blog/blogHeader.js'
+
+ReactDOM.render(<AuthExample />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
