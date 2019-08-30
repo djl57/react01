@@ -1,13 +1,11 @@
 .blog-header {
-  height: 40px;
-  line-height: 40px;
+  height: 50px;
+  line-height: 50px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   min-width: 1200px;
   padding: 0 40px;
   background-color: #fff;
   box-sizing: border-box;
-  // display: flex;
-  // justify-content: space-between;
   .nav-lists {
     float: left;
     .nav-list {
@@ -34,6 +32,17 @@
     .hd-right-margin {
       margin-left: 20px;
       cursor: pointer;
+    }
+    .writeBlogColor {
+      color: $waiteBlogIconColor;
+    }
+    .messageColor {
+      color: $messageIconColor;
+    }
+  }
+  .hd-haver-active {
+    &:hover {
+      color: $blogNavActiveColor;
     }
   }
 }
