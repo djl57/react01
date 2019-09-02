@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import "./styles/index.scss";
 import "normalize.css/normalize.css";
 import * as serviceWorker from "./serviceWorker";
-import * as Apis from './api/index'
 /* 
 RouterAlike 没用router前
 使用router：

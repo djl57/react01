@@ -1,35 +1,38 @@
 import React from "react";
-import { Form, Input, Button } from "antd";
-import { register } from "../../../../api/index";
+import { Form, Icon, Input, Button, Checkbox, Spin } from "antd";
+import { login } from "../../../../api/index";
 import { withRouter } from "react-router-dom";
+import { setToken } from "../../../../utils/cookie";
 
 const SUCCESS = "200";
 
-class RegistrationForm extends React.Component {
+class NormalLoginForm extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
     this.state = {
-      confirmDirty: false
+      clickLoginButton: false
     };
   }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (!err) {
-        console.log(values)
-        // const res = await register(values);
-        // if (res.code === SUCCESS) {
-        //   console.log(this.props);
-        //   this.props.history.push("/app/login");
-        // }
+        this.setState({
+          clickLoginButton: true
+        });
+        const res = await login(values);
+        this.setState({
+          clickLoginButton: false
+        });
+        console.log(res);
+        if (res.code === SUCCESS) {
+          this.props.history.push("/");
+          setToken(res.token);
+        }
       }
     });
   };
-  handleConfirmBlur = e => {
-    const { value } = e.target;
-    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-  };
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -39,23 +42,33 @@ class RegistrationForm extends React.Component {
     const tailFormItemLayout = {
       wrapperCol: {
         xs: { span: 24, offset: 0 },
-        sm: { span: 10, offset: 5 }
+        sm: { span: 10, offset: 0 }
       }
     };
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-        <Form.Item label="邮箱">
+        <Form.Item>
           {getFieldDecorator("email", {
-            rules: [{ type: "email", message: "邮箱格式错误!" }, { required: true, message: "请填写您的邮箱!" }]
-          })(<Input />)}
+            rules: [{ type: "email", message: "邮箱格式错误!" }, { required: true, message: "请输入您的邮箱!" }]
+          })(<Input prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />} placeholder="邮箱" />)}
         </Form.Item>
-        <Form.Item label="密码" hasFeedback>
+        <Form.Item>
           {getFieldDecorator("password", {
-            rules: [{ required: true, message: "请填写您的密码!" }]
-          })(<Input.Password />)}
+            rules: [{ required: true, message: "请输入您的密码!" }]
+          })(<Input prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />} type="password" placeholder="密码" />)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator("remember", {
+            valuePropName: "checked",
+            initialValue: true
+          })(<Checkbox>记住我</Checkbox>)}
+          {/* <a href="">
+            忘记密码
+          </a>
+          <a href="">现在注册</a> */}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={this.state.clickLoginButton}>
             登录
           </Button>
         </Form.Item>
@@ -64,13 +77,13 @@ class RegistrationForm extends React.Component {
   }
 }
 
-const WrappedRegistrationForm = withRouter(Form.create({ name: "register" })(RegistrationForm));
+const WrappedNormalLoginForm = withRouter(Form.create({ name: "normal_login" })(NormalLoginForm));
 
 class RegisterPage extends React.Component {
   render() {
     return (
       <div className="log-box">
-        <WrappedRegistrationForm></WrappedRegistrationForm>
+        <WrappedNormalLoginForm></WrappedNormalLoginForm>
       </div>
     );
   }

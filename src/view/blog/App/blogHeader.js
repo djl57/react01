@@ -1,6 +1,8 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Input, Icon } from "antd";
+import { Input, Icon, message } from "antd";
+import { getToken } from "../../../utils/cookie";
+import { auth } from "../../../api/index";
 
 const { Search } = Input;
 
@@ -14,12 +16,26 @@ class BlogHeader extends React.Component {
       curPath: pathname
     };
   }
-  goto(to) {
-    this.setState({
-      curPath: to
-    });
-    const { history } = this.props;
-    history.push(to);
+  async goto(to) {
+    if (to === "/app/writeBlog") {
+      if (getToken()) {
+        const res = await auth()
+        console.log(res)
+        this.setState({
+          curPath: to
+        });
+        const { history } = this.props;
+        history.push(to);
+      } else {
+        message.error("未登录！");
+      }
+    } else {
+      this.setState({
+        curPath: to
+      });
+      const { history } = this.props;
+      history.push(to);
+    }
   }
   onSearch(value) {
     console.log(value);
@@ -43,9 +59,9 @@ class BlogHeader extends React.Component {
           <span className="hd-right-margin hd-haver-active" onClick={() => this.goto("/app/writeBlog")}>
             <Icon type="highlight" className="writeBlogColor" /> 写博客
           </span>
-          <span className="hd-right-margin hd-haver-active" onClick={() => this.goto("/app/message")}>
+          {/* <span className="hd-right-margin hd-haver-active" onClick={() => this.goto("/app/message")}>
             <Icon type="mail" className="messageColor" /> 消息
-          </span>
+          </span> */}
           <span className="hd-right-margin hd-haver-active" onClick={() => this.goto("/app/login")}>
             登录
           </span>

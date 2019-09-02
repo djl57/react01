@@ -1,4 +1,6 @@
 import { message } from "antd";
+import { getToken } from "../utils/cookie";
+
 const status = {
   SUCCESS: "200",
   NET_ERR: "201", // 网络连接异常
@@ -10,14 +12,19 @@ const status = {
   SQL_ERR: "207" // 数据库操作异常
 };
 
+const rejectData = { code: -1, msg: "网络错误" };
+const responseHeaders = { "Content-Type": "application/json; charset=utf-8", Authorization: getToken() };
+
 const getMessage = data => {
-  switch (data.code) {
-    case status.SUCCESS:
-      message.success(data.msg);
-      break;
-    default:
-      message.error(data.msg);
-      break;
+  if (data.msg) {
+    switch (data.code) {
+      case status.SUCCESS:
+        message.success(data.msg);
+        break;
+      default:
+        message.error(data.msg);
+        break;
+    }
   }
 };
 
@@ -32,13 +39,19 @@ export const getData = (url, params) => {
     }
   }
   return new Promise((resolve, reject) => {
-    fetch(url)
+    fetch(url, {
+      method: "GET",
+      headers: responseHeaders
+    })
       .then(response => response.json())
       .then(data => {
         getMessage(data);
         resolve(data);
       })
-      .catch(err => reject(err)); // 仅当网络故障时或请求被阻止时，才会标记为 reject
+      .catch(err => {
+        getMessage(rejectData);
+        reject(err);
+      }); // 仅当网络故障时或请求被阻止时，才会标记为 reject
   });
 };
 
@@ -47,28 +60,35 @@ export const postData = (url, body) => {
     fetch(url, {
       method: "POST",
       body: JSON.stringify(body),
-      headers: { "Content-Type": "application/json; charset=utf-8" }
+      headers: responseHeaders
     })
       .then(response => response.json())
       .then(data => {
         getMessage(data);
         resolve(data);
       })
-      .catch(err => reject(err));
+      .catch(err => {
+        getMessage(rejectData);
+        reject(err);
+      });
   });
 };
 
 export const deleteData = (url, body) => {
   return new Promise((resolve, reject) => {
     fetch(url, {
-      method: "DELETE"
+      method: "DELETE",
+      headers: responseHeaders
     })
       .then(response => response.json())
       .then(data => {
         getMessage(data);
         resolve(data);
       })
-      .catch(err => reject(err));
+      .catch(err => {
+        getMessage(rejectData);
+        reject(err);
+      });
   });
 };
 
@@ -77,13 +97,16 @@ export const putData = (url, body) => {
     fetch(url, {
       method: "PUT",
       body: JSON.stringify(body),
-      headers: { "Content-Type": "application/json; charset=utf-8" }
+      headers: responseHeaders
     })
       .then(response => response.json())
       .then(data => {
         getMessage(data);
         resolve(data);
       })
-      .catch(err => reject(err));
+      .catch(err => {
+        getMessage(rejectData);
+        reject(err);
+      });
   });
 };
