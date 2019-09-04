@@ -24,9 +24,8 @@ class NormalLoginForm extends React.Component {
         this.setState({
           clickLoginButton: false
         });
-        console.log(res);
         if (res.code === SUCCESS) {
-          this.props.history.push("/");
+          this.props.history.push('/');
           setToken(res.token);
         }
       }

@@ -8,7 +8,6 @@ const SUCCESS = '200'
 class RegistrationForm extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props)
     this.state = {
       confirmDirty: false
     };
@@ -19,7 +18,6 @@ class RegistrationForm extends React.Component {
       if (!err) {
         const res = await register(values)
         if(res.code === SUCCESS) {
-          console.log(this.props)
           this.props.history.push('/app/login')
         }
       }

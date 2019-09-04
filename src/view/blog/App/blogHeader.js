@@ -1,7 +1,8 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Input, Icon } from "antd";
+import { Input, Icon, Menu, Dropdown } from "antd";
 import { checkAuth } from "../../../utils/auth";
+import { removeToken } from "../../../utils/cookie";
 
 const { Search } = Input;
 const SUCCESS = "200";
@@ -18,7 +19,43 @@ const Register = props => (
   </span>
 );
 
-const LoggedIn = () => <span>已登录</span>;
+const menu = props => {
+  const menuList1 = [
+    { name: "我的收藏", to: "/app/myCollection", key: "0" },
+    { name: "个人中心", to: "/app/personalCenter", key: "1" },
+    { name: "账号设置", to: "/app/accountSettings", key: "2" }
+  ];
+  const menuList2 = [{ name: "我的博客", to: "/app/myBlog", key: "3" }, { name: "管理博客", to: "/app/blogManagement", key: "4" }];
+  const menuItems1 = menuList1.map(item => (
+    <Menu.Item key={item.key} onClick={() => props.onGoto(item.to)}>
+      {item.name}
+    </Menu.Item>
+  ));
+  const menuItems2 = menuList2.map(item => (
+    <Menu.Item key={item.key} onClick={() => props.onGoto(item.to)}>
+      {item.name}
+    </Menu.Item>
+  ));
+  return (
+    <Menu>
+      {menuItems1}
+      <Menu.Divider />
+      {menuItems2}
+      <Menu.Divider />
+      <Menu.Item key="5" onClick={() => props.onGoto("/quit")}>
+        退出
+      </Menu.Item>
+    </Menu>
+  );
+};
+
+const LoggedIn = props => (
+  <Dropdown overlay={menu(props)} placement="bottomRight" className="hd-right-margin">
+    <span>
+      {props.nickname} <Icon type="down" />
+    </span>
+  </Dropdown>
+);
 
 class BlogHeader extends React.Component {
   constructor(props) {
@@ -28,35 +65,42 @@ class BlogHeader extends React.Component {
     } = props;
     this.state = {
       curPath: pathname,
-      isLogin: false
+      isLogin: false,
+      nickname: ""
     };
   }
   async goto(to) {
-    if (to === "/app/writeBlog") {
-      checkAuth(to).then(res => {
-        this.setState({
-          curPath: to
-        });
-        const { history } = this.props;
-        history.push(to);
-      });
-    } else {
+    if (to === "/quit") {
+      removeToken();
+      const { history } = this.props;
+      history.push("/");
+      return;
+    }
+    checkAuth(to).then(res => {
       this.setState({
         curPath: to
       });
       const { history } = this.props;
       history.push(to);
-    }
+    });
   }
   onSearch(value) {
     console.log(value);
   }
   async componentWillMount() {
-    const res = await checkAuth(this.state.curPath);
-    if (res && res.code === SUCCESS) {
-      this.setState({
-        isLogin: true
-      });
+    console.log("--hd加载前--");
+    console.log(this.state.curPath);
+    try {
+      const res = await checkAuth(this.state.curPath);
+      if (res && res.code === SUCCESS) {
+        this.setState({
+          isLogin: true,
+          nickname: res.data.nickname
+        });
+      }
+    } catch (error) {
+      const { history } = this.props;
+      history.push("/");
     }
   }
   render() {
@@ -82,7 +126,7 @@ class BlogHeader extends React.Component {
             <Icon type="mail" className="messageColor" /> 消息
           </span> */}
           {this.state.isLogin ? (
-            <LoggedIn></LoggedIn>
+            <LoggedIn onGoto={to => this.goto(to)} nickname={this.state.nickname}></LoggedIn>
           ) : (
             <span>
               <Login onGoto={() => this.goto("/app/login")}></Login>
