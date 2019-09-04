@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Icon, Input, Button, Checkbox, Spin } from "antd";
+import { Form, Icon, Input, Button, Checkbox } from "antd";
 import { login } from "../../../../api/index";
 import { withRouter } from "react-router-dom";
 import { setToken } from "../../../../utils/cookie";
@@ -36,7 +36,6 @@ class NormalLoginForm extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
-      labelCol: { xs: { span: 24 }, sm: { span: 5 } },
       wrapperCol: { xs: { span: 24 }, sm: { span: 10 } }
     };
     const tailFormItemLayout = {

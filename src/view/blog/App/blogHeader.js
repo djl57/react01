@@ -1,10 +1,24 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Input, Icon, message } from "antd";
-import { getToken } from "../../../utils/cookie";
-import { auth } from "../../../api/index";
+import { Input, Icon } from "antd";
+import { checkAuth } from "../../../utils/auth";
 
 const { Search } = Input;
+const SUCCESS = "200";
+
+const Login = props => (
+  <span className="hd-right-margin hd-haver-active" onClick={() => props.onGoto()}>
+    登录
+  </span>
+);
+
+const Register = props => (
+  <span className="hd-right-margin hd-haver-active" onClick={() => props.onGoto()}>
+    注册
+  </span>
+);
+
+const LoggedIn = () => <span>已登录</span>;
 
 class BlogHeader extends React.Component {
   constructor(props) {
@@ -13,22 +27,19 @@ class BlogHeader extends React.Component {
       location: { pathname }
     } = props;
     this.state = {
-      curPath: pathname
+      curPath: pathname,
+      isLogin: false
     };
   }
   async goto(to) {
     if (to === "/app/writeBlog") {
-      if (getToken()) {
-        const res = await auth()
-        console.log(res)
+      checkAuth(to).then(res => {
         this.setState({
           curPath: to
         });
         const { history } = this.props;
         history.push(to);
-      } else {
-        message.error("未登录！");
-      }
+      });
     } else {
       this.setState({
         curPath: to
@@ -39,6 +50,14 @@ class BlogHeader extends React.Component {
   }
   onSearch(value) {
     console.log(value);
+  }
+  async componentWillMount() {
+    const res = await checkAuth(this.state.curPath);
+    if (res && res.code === SUCCESS) {
+      this.setState({
+        isLogin: true
+      });
+    }
   }
   render() {
     const navLists = [{ id: 0, navName: "首页", to: "/app/home" }, { id: 1, navName: "博客", to: "/app/blog" }];
@@ -62,12 +81,14 @@ class BlogHeader extends React.Component {
           {/* <span className="hd-right-margin hd-haver-active" onClick={() => this.goto("/app/message")}>
             <Icon type="mail" className="messageColor" /> 消息
           </span> */}
-          <span className="hd-right-margin hd-haver-active" onClick={() => this.goto("/app/login")}>
-            登录
-          </span>
-          <span className="hd-right-margin hd-haver-active" onClick={() => this.goto("/app/register")}>
-            注册
-          </span>
+          {this.state.isLogin ? (
+            <LoggedIn></LoggedIn>
+          ) : (
+            <span>
+              <Login onGoto={() => this.goto("/app/login")}></Login>
+              <Register onGoto={() => this.goto("/app/register")}></Register>
+            </span>
+          )}
         </ul>
       </div>
     );

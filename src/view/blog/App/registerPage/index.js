@@ -47,13 +47,13 @@ class RegistrationForm extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
-      labelCol: { xs: { span: 24 }, sm: { span: 5 } },
+      labelCol: { xs: { span: 24 }, sm: { span: 2 } },
       wrapperCol: { xs: { span: 24 }, sm: { span: 10 } }
     };
     const tailFormItemLayout = {
       wrapperCol: {
         xs: { span: 24, offset: 0 },
-        sm: { span: 10, offset: 5 }
+        sm: { span: 10, offset: 2 }
       }
     };
     return (
