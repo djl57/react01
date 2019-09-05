@@ -1,11 +1,9 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { Input, Icon, Menu, Dropdown } from "antd";
-import { checkAuth } from "../../../utils/auth";
-import { removeToken } from "../../../utils/cookie";
+import { removeToken, getToken } from "../../../utils/cookie";
 
 const { Search } = Input;
-const SUCCESS = "200";
 
 const Login = props => (
   <span className="hd-right-margin hd-haver-active" onClick={() => props.onGoto()}>
@@ -65,7 +63,7 @@ class BlogHeader extends React.Component {
     } = props;
     this.state = {
       curPath: pathname,
-      isLogin: false,
+      isLogin: getToken(),
       nickname: ""
     };
   }
@@ -76,32 +74,14 @@ class BlogHeader extends React.Component {
       history.push("/");
       return;
     }
-    checkAuth(to).then(res => {
-      this.setState({
-        curPath: to
-      });
-      const { history } = this.props;
-      history.push(to);
+    this.setState({
+      curPath: to
     });
+    const { history } = this.props;
+    history.push(to);
   }
   onSearch(value) {
     console.log(value);
-  }
-  async componentWillMount() {
-    console.log("--hd加载前--");
-    console.log(this.state.curPath);
-    try {
-      const res = await checkAuth(this.state.curPath);
-      if (res && res.code === SUCCESS) {
-        this.setState({
-          isLogin: true,
-          nickname: res.data.nickname
-        });
-      }
-    } catch (error) {
-      const { history } = this.props;
-      history.push("/");
-    }
   }
   render() {
     const navLists = [{ id: 0, navName: "首页", to: "/app/home" }, { id: 1, navName: "博客", to: "/app/blog" }];
@@ -119,9 +99,9 @@ class BlogHeader extends React.Component {
         <ul className="nav-lists">{listItem}</ul>
         <ul className="hd-right">
           <Search placeholder="搜索" onSearch={value => this.onSearch(value)} style={{ width: 200 }} />
-          <span className="hd-right-margin hd-haver-active" onClick={() => this.goto("/app/writeBlog")}>
+          {/* <span className="hd-right-margin hd-haver-active" onClick={() => this.goto("/app/writeBlog")}>
             <Icon type="highlight" className="writeBlogColor" /> 写博客
-          </span>
+          </span> */}
           {/* <span className="hd-right-margin hd-haver-active" onClick={() => this.goto("/app/message")}>
             <Icon type="mail" className="messageColor" /> 消息
           </span> */}
