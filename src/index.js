@@ -45,9 +45,12 @@ UseCombineReducers Reducer的拆分
 
 /* blog相关：*/
 // import './store/index.js'
-import BlogPage from "./view/blog/page.js";
+// import BlogPage from "./view/blog/page.js";
 
-ReactDOM.render(<BlogPage />, document.getElementById("root"));
+/* blog2，1的路由权限出现问题 */
+import Blog2Page from './view/blog2/app.js'
+
+ReactDOM.render(<Blog2Page />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
